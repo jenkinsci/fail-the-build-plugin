@@ -35,7 +35,7 @@
     <artifactId>fail-the-build-plugin</artifactId>
     <packaging>hpi</packaging>
     <name>Fail The Build Plugin</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <description>Change the build result to help testing job configuration</description>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/Fail+The+Build+Plugin</url>
 
