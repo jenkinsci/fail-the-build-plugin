@@ -29,7 +29,7 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.396</version>
+        <version>1.420</version>
     </parent>
 
     <artifactId>fail-the-build-plugin</artifactId>
@@ -42,7 +42,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+
     <licenses>
         <license>
             <name>The MIT license</name>
@@ -66,25 +66,25 @@
         <connection>scm:git:git://github.com/jenkinsci/fail-the-build-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/fail-the-build-plugin.git</developerConnection>
     </scm>
-    
+
     <issueManagement>
         <system>JIRA</system>
         <url>http://issues.jenkins-ci.org/</url>
     </issueManagement>
-    
+
     <distributionManagement>
         <repository>
             <id>maven.jenkins-ci.org</id>
             <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
         </repository>
     </distributionManagement>
-        
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.jenkins-ci.tools</groupId>
                 <artifactId>maven-hpi-plugin</artifactId>
-                <version>1.67</version>
+                <version>1.115</version>
                 <extensions>true</extensions>
                 <configuration>
                     <compatibleSinceVersion>0.3</compatibleSinceVersion>
@@ -92,7 +92,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
 
     <repositories>
         <repository>
@@ -107,7 +107,7 @@
             <url>http://repo.jenkins-ci.org/public/</url>
         </pluginRepository>
     </pluginRepositories>
-</project>  
-  
+</project>
+
 
 
