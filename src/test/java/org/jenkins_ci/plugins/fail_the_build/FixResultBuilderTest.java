@@ -35,15 +35,19 @@ public class FixResultBuilderTest extends HudsonTestCase {
     }
 
     public void testUnstable() throws Exception {
-        assertDefaultResult(Result.UNSTABLE);        
+        assertDefaultResult(Result.UNSTABLE);
     }
 
     public void testFailed() throws Exception {
-        assertDefaultResult(Result.FAILURE);        
+        assertDefaultResult(Result.FAILURE);
     }
 
     public void testAborted() throws Exception {
-        assertDefaultResult(Result.ABORTED);        
+        assertDefaultResult(Result.ABORTED);
+    }
+
+    public void testNotBuilt() throws Exception {
+        assertDefaultResult(Result.NOT_BUILT);
     }
 
     public void testCycle() throws Exception {
@@ -53,28 +57,30 @@ public class FixResultBuilderTest extends HudsonTestCase {
         buildAndAssertResult(Result.UNSTABLE, project);
         buildAndAssertResult(Result.FAILURE, project);
         buildAndAssertResult(Result.ABORTED, project);
+        buildAndAssertResult(Result.NOT_BUILT, project);
         buildAndAssertResult(Result.SUCCESS, project);
         buildAndAssertResult(Result.UNSTABLE, project);
         buildAndAssertResult(Result.FAILURE, project);
         buildAndAssertResult(Result.ABORTED, project);
+        buildAndAssertResult(Result.NOT_BUILT, project);
     }
 
     public void testBuildNumberResult() throws Exception {
         final FreeStyleProject project = createFreeStyleProject();
-        project.getBuildersList().add(createFixResultBuilder(Result.FAILURE.toString(), "1", null, null, null));
+        project.getBuildersList().add(createFixResultBuilder(Result.FAILURE.toString(), " 1 ", null, null, null, null));
         buildAndAssertResult(Result.SUCCESS, project);
     }
 
     public void testBuildNumberResultWithWhiteSpace() throws Exception {
         final FreeStyleProject project = createFreeStyleProject();
-        project.getBuildersList().add(createFixResultBuilder(Result.FAILURE.toString(), " 1 ", null, null, null));
+        project.getBuildersList().add(createFixResultBuilder(Result.FAILURE.toString(), " 1 ", null, null, null, null));
         buildAndAssertResult(Result.SUCCESS, project);
     }
 
     public void testSuccessNumbers() throws Exception {
         final String successes = "1,2, 4, 6 7 ";
         final FreeStyleProject project = createFreeStyleProject();
-        project.getBuildersList().add(createFixResultBuilder(Result.FAILURE.toString(), successes, null, null, null));
+        project.getBuildersList().add(createFixResultBuilder(Result.FAILURE.toString(), successes, null, null, null, null));
         buildAndAssertResult(Result.SUCCESS, project); // 1
         buildAndAssertResult(Result.SUCCESS, project); // 2
         buildAndAssertResult(Result.FAILURE, project);
@@ -90,8 +96,9 @@ public class FixResultBuilderTest extends HudsonTestCase {
         final String unstable = "1,3,4,10";
         final String failure = "2, 7, 8";
         final String aborted = " 5 ";
+        final String notBuilt = " 11 ";
         final FreeStyleProject project = createFreeStyleProject();
-        project.getBuildersList().add(createFixResultBuilder(Result.FAILURE.toString(), successes, unstable, failure, aborted));
+        project.getBuildersList().add(createFixResultBuilder(Result.FAILURE.toString(), successes, unstable, failure, aborted, notBuilt));
         buildAndAssertResult(Result.UNSTABLE, project); // 1
         buildAndAssertResult(Result.FAILURE, project); // 2
         buildAndAssertResult(Result.UNSTABLE, project); // 3
@@ -102,6 +109,7 @@ public class FixResultBuilderTest extends HudsonTestCase {
         buildAndAssertResult(Result.FAILURE, project); // 8
         buildAndAssertResult(Result.FAILURE, project); // 9
         buildAndAssertResult(Result.UNSTABLE, project); // 10
+        buildAndAssertResult(Result.NOT_BUILT, project); // 11
     }
 
     private void assertDefaultResult(final Result result) throws Exception {
@@ -115,12 +123,15 @@ public class FixResultBuilderTest extends HudsonTestCase {
     }
 
     private FixResultBuilder createFixResultBuilder(final String defaultConfigName) {
-        return createFixResultBuilder(defaultConfigName, null, null, null, null);
+        return createFixResultBuilder(defaultConfigName, null, null, null, null, null);
     }
 
-    private FixResultBuilder createFixResultBuilder(final String defaultConfigName, final String success, final String unstable,
-                                                    final String failure, final String aborted) {
-        return new FixResultBuilder(defaultConfigName, success, unstable, failure, aborted);
+    private FixResultBuilder createFixResultBuilder(
+            final String defaultConfigName, final String success,
+            final String unstable, final String failure, final String aborted,
+            final String notBuilt) {
+        return new FixResultBuilder(defaultConfigName, success, unstable,
+                failure, aborted, notBuilt);
     }
 
 }

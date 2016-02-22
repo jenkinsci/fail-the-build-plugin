@@ -43,14 +43,15 @@ import java.util.List;
 import java.util.Map;
 
 public class FixResultBuilder extends Builder {
-    
+
     public static final AbstractResult SUCCESS = new BallResult(Result.SUCCESS);
     public static final AbstractResult UNSTABLE = new BallResult(Result.UNSTABLE);
     public static final AbstractResult FAILURE = new BallResult(Result.FAILURE);
     public static final AbstractResult ABORTED = new BallResult(Result.ABORTED);
+    public static final AbstractResult NOT_BUILT = new BallResult(Result.NOT_BUILT);
     public static final AbstractResult CYCLE = new CycleResult();
-    
-    public static final AbstractResult[] RESULTS = {SUCCESS, UNSTABLE, FAILURE, ABORTED, CYCLE};
+
+    public static final AbstractResult[] RESULTS = {SUCCESS, UNSTABLE, FAILURE, ABORTED, NOT_BUILT, CYCLE};
 
     private transient Map<Integer, AbstractResult> resultsByBuildNumber = null;
     private final String defaultResultName;
@@ -58,15 +59,17 @@ public class FixResultBuilder extends Builder {
     private final String unstable;
     private final String failure;
     private final String aborted;
+    private final String notBuilt;
 
     @DataBoundConstructor
     public FixResultBuilder(final String defaultResultName, final String success, final String unstable, final String failure,
-                            final String aborted) {
+                            final String aborted, final String notBuilt) {
         this.defaultResultName = defaultResultName;
         this.success = success;
         this.unstable = unstable;
         this.failure = failure;
         this.aborted = aborted;
+        this.notBuilt = notBuilt;
     }
 
     public String getDefaultResultName() {
@@ -78,6 +81,10 @@ public class FixResultBuilder extends Builder {
             if (result.getName().equals(defaultResultName)) return result;
         }
         throw new RuntimeException(Messages.exception_invalidResultName(defaultResultName));
+    }
+
+    public String getNotBuilt() {
+        return notBuilt;
     }
 
     public String getAborted() {
@@ -131,6 +138,7 @@ public class FixResultBuilder extends Builder {
         parseAndStore(UNSTABLE, unstable);
         parseAndStore(FAILURE, failure);
         parseAndStore(ABORTED, aborted);
+        parseAndStore(NOT_BUILT, notBuilt);
     }
 
     private void parseAndStore(final AbstractResult result, final String buildNumberList) {
@@ -174,6 +182,10 @@ public class FixResultBuilder extends Builder {
 
         public String getAbortedTitle() {
             return ABORTED.getDisplayName();
+        }
+
+        public String getNotBuiltTitle() {
+            return NOT_BUILT.getDisplayName();
         }
 
     }
