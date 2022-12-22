@@ -26,9 +26,11 @@ package org.jenkins_ci.plugins.fail_the_build;
 
 import hudson.model.FreeStyleProject;
 import hudson.model.Result;
-import org.jvnet.hudson.test.HudsonTestCase;
+import org.jvnet.hudson.test.JenkinsRule;
 
-public class FixResultBuilderTest extends HudsonTestCase {
+import static org.junit.Assert.assertEquals;
+
+public class FixResultBuilderTest extends JenkinsRule {
 
     public void testSuccess() throws Exception {
         assertDefaultResult(Result.SUCCESS);

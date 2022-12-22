@@ -35,6 +35,7 @@ import hudson.model.Result;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Builder;
 import hudson.util.ListBoxModel;
+import jenkins.model.Jenkins;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import java.util.ArrayList;
@@ -111,7 +112,7 @@ public class FixResultBuilder extends Builder {
 
     @Override
     public FixResultBuilderDescriptor getDescriptor() {
-        return Hudson.getInstance().getDescriptorByType(FixResultBuilderDescriptor.class);
+        return Jenkins.get().getDescriptorByType(FixResultBuilderDescriptor.class);
     }
 
     @Override

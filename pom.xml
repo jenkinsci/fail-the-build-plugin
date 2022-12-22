@@ -29,18 +29,21 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.396</version>
+        <version>4.53</version>
+        <relativePath />
     </parent>
 
     <artifactId>fail-the-build-plugin</artifactId>
     <packaging>hpi</packaging>
     <name>Fail The Build Plugin</name>
-    <version>1.1-SNAPSHOT</version>
-    <description>Change the build result to help testing job configuration</description>
+    <version>${changelist}</version>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/Fail+The+Build+Plugin</url>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <changelist>999999-SNAPSHOT</changelist>
+        <jenkins.version>2.361.4</jenkins.version>
+        <!-- TODO fix violations -->
+        <spotbugs.threshold>High</spotbugs.threshold>
     </properties>
     
     <licenses>
@@ -50,64 +53,24 @@
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <id>bap</id>
-            <name>Bap</name>
-            <email>bap-jenkins@BapIT.co.uk</email>
-        </developer>
-    </developers>
-
-    <dependencies>
-    </dependencies>
-
     <scm>
         <url>https://github.com/jenkinsci/fail-the-build-plugin</url>
-        <connection>scm:git:git://github.com/jenkinsci/fail-the-build-plugin.git</connection>
+        <connection>scm:git:https://github.com/jenkinsci/fail-the-build-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/fail-the-build-plugin.git</developerConnection>
     </scm>
-    
-    <issueManagement>
-        <system>JIRA</system>
-        <url>http://issues.jenkins-ci.org/</url>
-    </issueManagement>
-    
-    <distributionManagement>
-        <repository>
-            <id>maven.jenkins-ci.org</id>
-            <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
-        </repository>
-    </distributionManagement>
-        
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.jenkins-ci.tools</groupId>
-                <artifactId>maven-hpi-plugin</artifactId>
-                <version>1.67</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <compatibleSinceVersion>0.3</compatibleSinceVersion>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    
 
     <repositories>
         <repository>
             <id>repo.jenkins-ci.org</id>
-            <url>http://repo.jenkins-ci.org/public/</url>
+            <url>https://repo.jenkins-ci.org/public/</url>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
             <id>repo.jenkins-ci.org</id>
-            <url>http://repo.jenkins-ci.org/public/</url>
+            <url>https://repo.jenkins-ci.org/public/</url>
         </pluginRepository>
     </pluginRepositories>
-</project>  
-  
 
-
+</project>
